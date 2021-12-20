@@ -8,6 +8,8 @@
 # define MAP_DEFAULT_HEIGHT 6
 # define MAP_DEFAULT_WIDTH 6
 
+# include <stdint.h>
+
 typedef enum e_turns_types {
 	turns_type_none,
 	turns_type_up,
@@ -25,10 +27,10 @@ typedef enum e_turns_types {
 } t_turns_types;
 
 typedef struct s_match_3_data {
-	unsigned short y;
-	unsigned short x;
-	unsigned short height;
-	unsigned short width;
+	size_t y;
+	size_t x;
+	size_t height;
+	size_t width;
 	unsigned char **map;
 } t_match_3_data;
 

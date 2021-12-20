@@ -17,35 +17,41 @@ int main(int argc, char** argv) {
 
 	data.x = 0;
 	data.y = 0;
-	data.width = (short)atoi(argv[1]);
-	data.height = (short)atoi(argv[2]);
+	data.width = atoi(argv[1]);
+	data.height = atoi(argv[2]);
 
-	data.map = malloc(data.y * sizeof(size_t));
+	data.map = malloc(data.height * sizeof(size_t));
 	for (int y = 0; y < data.height; y++) {
-		data.map[y] = malloc(data.x * sizeof(unsigned char));
+		data.map[y] = malloc(data.width * sizeof(unsigned char));
 		for (int x = 0; x < data.width; x++) {
 			data.map[y][x] = getchar();
 		}
 	}
 
+#ifdef DISPLAY_MAP
 	for (int i = 0; i < data.height; i++) {
 		for (int j = 0; j < data.width; j++) {
 			printf("%c ", data.map[i][j]);
 		}
 		puts("");
 	}
+#endif
 
 	results = search_turn(&data);
 	if (NULL == results) {
-		puts("There is no turns for this map");
+		puts("There are no turns for this map");
 		exit(1);
 	}
 
 	int i = 0;
+
+#ifdef DISPLAY_TURNS
 	while (NULL != results) {
 		printf("turn:%d\tY:%d\tX:%d\tmsg:%s\n", ++i, results->y, results->x, get_turn_name(results->turn_type));
 		results = results->next;
 	}
+#endif
+	puts("There are turns for this map");
 
 	return 0;
 }
